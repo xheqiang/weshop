@@ -1,0 +1,60 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>页面提示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+</head>
+<body ><script language="javascript">
+var i=3;
+function show(){
+
+
+	document.getElementById('time4').innerHTML=i;
+	i--;
+
+	if(i==-1){
+		location.href=document.referrer;
+	}
+}
+
+setInterval(show,1000);
+
+</script>
+<div style="margin-left:20%;margin-top:15%;background:#2A8CBB; margin-right:20%; height:80px;">
+<div class="message">
+<table class="message"  cellpadding=0 cellspacing=0  width="100%">
+
+	<tr>
+		<td height='5' class="bottomTd"></td>
+	</tr>
+	<tr>
+		<td height='5' class="bottomTd"></td>
+	</tr>
+	<tr>
+		<td height='5' class="bottomTd"></td>
+	</tr>
+	<?php if(isset($message)): ?><tr class="row" align="center">
+		<td style="color:blue"><font color="red"><b><?php echo ($message); ?></b></font></td>
+	</tr><?php endif; ?>
+	<?php if(isset($error)): ?><tr class="row" align="center">
+		<td style="color:red"><font color="red"><B><?php echo ($error); ?></B></font></td>
+	</tr><?php endif; ?>
+	
+	<?php if(!isset($closeWin)): ?><tr>
+		<td height='5'  class="topTd" ></td>
+	</tr>
+	<tr class="row" align="center">
+	
+		<td><font color="white"><b>系统将在</b></font> <span style="color:red;font-weight:bold" id="time4">
+
+		</span> <font color="white"><b>秒后自动跳转,如果不想等待,直接点击</b> </font>
+		<a href="<?php echo ($jumpUrl); ?>"><font color="red"><b>这里</b></font></a> <font color="white"><b>跳转</b></font></td>
+	</tr><?php endif; ?>
+	<tr>
+		<td height='5' class="bottomTd"></td>
+	</tr>
+	</table>
+</div></div>
+</body>
+</html>
