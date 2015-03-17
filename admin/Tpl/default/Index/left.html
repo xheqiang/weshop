@@ -33,19 +33,16 @@
 			<div class="menubox">
 				<div class="title" onclick="DisplayMenu('leftmenu02');" title="点击切换显示或隐藏"> 商品栏目管理 </div>
 				<div id="leftmenu02" style="display:none">
-					 <a href="__APP__/Type" target="main">栏目列表</a>
-					 <a href="__APP__/Type/add" target="main">添加栏目</a>
+					 <a href="__APP__/Type" target="main">商品分类列表</a>
+					 <a href="__APP__/Type/add" target="main">添加分类</a>
 				</div>
 			</div>
 			<div class="hr_5"></div>
 			<div class="menubox">
 				<div class="title" onclick="DisplayMenu('leftmenu03');" title="点击切换显示或隐藏"> 商品管理 </div>
 				<div id="leftmenu03" style="display:none">
-					<a href="" target="main">商品列表</a>
-					<a href="" target="main">添加成品</a>
-					<a href="" target="main">成交记录</a>
-                    <a href="" target="main">下架记录</a>
-
+					<a href="__APP__/Goods" target="main">商品列表</a>
+					<a href="__APP__/Goods/add" target="main">添加成品</a>
 				</div>
 			</div>
 			<div class="hr_5"></div>

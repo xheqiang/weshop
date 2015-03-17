@@ -9,7 +9,7 @@
 <style type="text/css">
 a{ text-decoration:none;}
 	.a{display:block;
-	width:6em;
+	width:3em;
 	padding:0.2em;
 	line-height:1.4;
 	background-color:#EFFAFF;
@@ -42,18 +42,36 @@ button:hover {text-decoration: none;background-color:#73B2DB; color:#fff;}
 </style>
 </head>
 <body>
-<div class="mgr_header"> <span class="title">商品分类管理</span> <span class="reload"><a class="a" href="javascript:location.reload();">刷新</a></span> </div>
+<div class="mgr_header"> <span class="title">商品分类管理</span> <span class="reload"><a href="javascript:location.reload();">刷新</a></span> </div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="mgr_table">
+		<tr class="thead" height="30px" align="center" >
+			<td width="10%">&nbsp;</td>
+			<td width="25%" align="left">分类名称</td>
+			<td width="25%" >所属分类</td>
+			<td  width="15%">分类状态</td>
+			<td  width="20%">操作</td>
+			<td  width="5%">&nbsp;</td>
+		</tr>
+	</table>
+
+			<volist name="arr" id="vo">
+			    	{$vo}
+			</volist>
+
+<!--<div class="mgr_header"> <span class="title">商品分类管理</span> <span class="reload"><a class="a" href="javascript:location.reload();">刷新</a></span> </div>
 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="mgr_table">
-	<tr class="thead" align="center" height="30px">
-		<td width="30%">分类名称</td>
-		<td width="30%">所属分类</td>
-		<td width="20%">分类状态</td>
-		<td width="20%">操作</td>
+	<tr class="thead" height="30px">
+		<td width="10%">&nbsp;</td>
+		<td width="25%">分类名称</td>
+		<td width="25%">所属分类</td>
+		<td align="center" width="15%">分类状态</td>
+		<td align="center" width="15%">操作</td>
+		<td align="center" width="10%">&nbsp;</td>
 	</tr>
     <volist name="arr" id="vo">
     	{$vo}
     </volist>
-</table>
+</table>-->
 
 <div class="mgr_divb"> <span class="mgr_btn"><a href="__URL__/add">添加商品分类</a></span> </div>
 </body>

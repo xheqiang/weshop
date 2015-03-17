@@ -1,8 +1,16 @@
 <?php
-	class  TypeAction extends Action{
+	class  TypeAction extends Action
+	{
 		//分类显示首页
 		public function Index()
 		{
+			session_start();
+			if($_SESSION["isadmin"]!=1)
+			{
+				header("Content-Type:text/html;charset=utf-8");
+				echo "<script>alert('请你使用正确的方式登录！');window.location.href='../'</script>";
+			}
+			
 			header("Content-Type:text/html; charset=utf-8");
 			$type=M("type");
 			$list=$type->where('f_id=0')->select();
@@ -28,15 +36,21 @@
 					{
 						$status="未审核";
 					}
-					$nbsp="&nbsp;&nbsp;&nbsp;&nbsp;";
-					$var.="<tr align='center' class='mgr_tr'>
-								<td height='30px'>$nbsp <span class='sub_type'> $val1[typename]</span></td>
-								<td>$lista[typename]</td>
-								<td title='点击更新审核状态'><a href='__URL__/changestatus/typeid/$val1[typeid]'>$status</a></td>
-								<td><a href=\"__URL__/edit/typeid/$val1[typeid]\">编辑</a>
-									||<a href=\"__URL__/del/typeid/$val1[typeid]\"  onClick=\"JavaScript:return confirm('您确定要删除该分类码？')\" >删除</a>
+					$var.="
+					<div rel=''>
+						<table width='100%' border='0' cellpadding='0' cellspacing='0' class='mgr_table'>
+							<tr class='mgr_tr' align='center'>
+								<td width='10%' height='32'>&nbsp;</td>
+								<td width='25%' align='left'><span class='sub_type'> $val1[typename]</span></td>
+								<td width='25%'>$lista[typename]</td>
+								<td width='15%'   title='点击更新审核状态'><a href='__URL__/changestatus/typeid/$val1[typeid]'>$status</a></td>
+								<td width='20%'><a href=\"__URL__/edit/typeid/$val1[typeid]\">编辑</a>
+									||<a href=\"__URL__/del/typeid/$val1[typeid]\"  onClick=\"JavaScript:return confirm('您确定要删除该商品分类码？')\" >删除</a>
 								</td>
-							</tr>";	
+								<td width='5%'>&nbsp;</td>
+							</tr>
+						</table>
+					</div>";	
 				}
 				if($val[status]=="1")
 				{
@@ -45,14 +59,21 @@
 				{
 					$status="未审核";
 				}
-				$arr[]="<tr align='center' class='mgr_tr'>
-								<td height='30px'>$val[typename]</td>
-								<td>无</td>
-								<td title='点击更新审核状态'><a href='__URL__/changestatus/typeid/$val[typeid]'>$status</a></td>
-								<td><a href='__URL__/edit/typeid/$val[typeid]'>编辑</a>
-									||<a href='__URL__/del/typeid/$val[typeid]' onClick=\"JavaScript:return confirm('您确定要删除该分类及该分类的子类吗？')\" >删除</a>
+				$arr[]="
+				<div rel=''>
+					<table width='100%' border='0' cellpadding='0' cellspacing='0' class='mgr_table'>
+						<tr  class='mgr_tr' align='center'>
+								<td height='32' width='10%'>&nbsp;</td>
+								<td width='25%' align='left'>$val[typename]</td>
+								<td width='25%'>无</td>
+								<td width='15%'  title='点击更新审核状态'><a href='__URL__/changestatus/typeid/$val[typeid]'>$status</a></td>
+								<td width='20%'><a href='__URL__/edit/typeid/$val[typeid]'>编辑</a>
+									||<a href='__URL__/del/typeid/$val[typeid]' onClick=\"JavaScript:return confirm('您确定要删除该商品分类及该商品分类的子类吗？')\" >删除</a>
 								</td>
-					   </tr>".$var;	
+								<td width='5%'>&nbsp;</td>
+					   	</tr>
+					</table>
+				</div> ".$var;	
 				unset($var);
 				
 			}
@@ -63,8 +84,14 @@
 		//分类添加界面
 		public function add()
 		{
-			header("Content-Type:text/html; charset=utf-8");
+			session_start();
+			if($_SESSION["isadmin"]!=1)
+			{
+				header("Content-Type:text/html;charset=utf-8");
+				echo "<script>alert('请你使用正确的方式登录！');window.location.href='../'</script>";
+			}
 			
+			header("Content-Type:text/html; charset=utf-8");
 			//循环显示一级分类信息
 			$type=M("type");
 		  	$list=$type->where('f_id=0')->select();
@@ -75,6 +102,13 @@
 		//分类添加操作页面
 		public function doadd()
 		{
+			session_start();
+			if($_SESSION["isadmin"]!=1)
+			{
+				header("Content-Type:text/html;charset=utf-8");
+				echo "<script>alert('请你使用正确的方式登录！');window.location.href='../'</script>";
+			}
+			
 			header("Content-Type:text/html; charset=utf-8");
 			$type=M("type");
 			$data["typename"]=$_POST["typename"];
@@ -84,10 +118,10 @@
 			{
 				if($type->data($data)->add())
 				{
-					$this->success("分类添加成功!");
+					$this->success("商品分类添加成功!");
 				}else
 				{
-					$this->error("对不起，系统出错，请重新添加分类!");
+					$this->error("对不起，系统出错，请重新添加商品分类!");
 				}
 			}
 			else
@@ -101,6 +135,13 @@
 		//更新审核状态方法
 		public function changestatus()
 		{
+			session_start();
+			if($_SESSION["isadmin"]!=1)
+			{
+				header("Content-Type:text/html;charset=utf-8");
+				echo "<script>alert('请你使用正确的方式登录！');window.location.href='../'</script>";
+			}
+			
 			header("Content-Type:text/html; charset=utf-8");
 			$typeid=$_GET["typeid"];
 			$type=M("type");
@@ -116,9 +157,9 @@
 			$success=$type->where("typeid='$typeid'")->save($data);
 			if($success)
 			{
-				$this->success("审核状态修改成功!");
+				$this->success("商品分类审核状态修改成功!");
 			}else{
-				$this->error("对不起，审核状态修改失败，请重新修改!");
+				$this->error("对不起，商品分类审核状态修改失败，请重新修改!");
 			}
 			
 			
@@ -126,6 +167,13 @@
 		//修改页面显示
 		public function edit()
 		{
+			session_start();
+			if($_SESSION["isadmin"]!=1)
+			{
+				header("Content-Type:text/html;charset=utf-8");
+				echo "<script>alert('请你使用正确的方式登录！');window.location.href='../'</script>";
+			}
+			
 			header("Content-Type:text/html; charset=utf-8");
 			$typeid=$_GET["typeid"];
 			$type=M("type");
@@ -147,6 +195,13 @@
 		//更新操作页面
 		public function doedit()
 		{
+			session_start();
+			if($_SESSION["isadmin"]!=1)
+			{
+				header("Content-Type:text/html;charset=utf-8");
+				echo "<script>alert('请你使用正确的方式登录！');window.location.href='../'</script>";
+			}
+			
 			header("Content-Type:text/html; charset=utf-8");
 			$typeid=$_POST["typeid"];
 			$data["typename"]=$_POST["typename"];
@@ -165,11 +220,19 @@
 		//删除操作页面
 		public function del()
 		{
+			session_start();
+			if($_SESSION["isadmin"]!=1)
+			{
+				header("Content-Type:text/html;charset=utf-8");
+				echo "<script>alert('请你使用正确的方式登录！');window.location.href='../'</script>";
+			}
+			
 			header("Content-Type:text/html; charset=utf-8");
 			$typeid=$_GET["typeid"];
 			$type=M("type");
 			$type->where("f_id ='$typeid'")->delete();
 			$success=$type->where("typeid='$typeid'")->delete();
+			$success1=$type->where("f_id='$typeid'")->delete();
 			if($success)
 			{
 				$this->success("恭喜你，该分类及分类的子类都已经删除！");
